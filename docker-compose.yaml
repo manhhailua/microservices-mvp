@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  api-gateway:
+    image: docker.io/bitnami/nginx:1.23
+    ports:
+      - '8080:8080'
+    volumes:
+      - './api-gateway/routing.conf:/opt/bitnami/nginx/conf/server_blocks/routing.conf:ro'
+
+  auth:
+    build:
+      context: ./auth-service
+
+  backend:
+    build:
+      context: ./backend-service
+
+  timekeeping:
+    build:
+      context: ./timekeeping-service
+
+  frontend:
+    build:
+      context: ./frontend-service
